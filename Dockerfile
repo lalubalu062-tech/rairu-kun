@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-# Tmate aur zaroori tools install karna
+# Tools install karna
 RUN apt-get update && apt-get install -y \
     git \
     tmate \
@@ -9,8 +9,8 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
-# Bot ki requirements
+# Bot requirements
 RUN pip install playwright && playwright install chromium && playwright install-deps
 
-# Ye command Tmate start karegi aur Link generate karegi
-CMD tmate -F
+# FIX: Pehle ek nakli server chalao (8000 par), fir Tmate chalao
+CMD python3 -m http.server 8000 & tmate -F
